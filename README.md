@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ilé — 3D scroll real estate site
 
-## Getting Started
+Next.js 16 · React Three Fiber · GSAP ScrollTrigger · Lenis · Motion · Tailwind v4
 
-First, run the development server:
+## Run
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000. Deploys to Vercel as-is.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## What happens on the page
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Scroll range | Camera (3D) | DOM |
+|---|---|---|
+| Preloader | compiles scene | counter 0→100, panel lifts |
+| Intro | dollies in from far away | headline letters rise, nav drops in |
+| Hero → Story (`#journey`) | flies over pool → living glass → timber tower → aerial | 3 captions synced to the camera, hotspots fade in on the model |
+| Listings (`#homes`) | parked aerial (hidden behind) | section pins, cards slide sideways, tilt + glare + image parallax on hover |
+| Marquee | — | neighbourhood names, speed + skew react to scroll velocity |
+| Finale (`#finale`) | swings back to ground level | **day turns to dusk**, interior + pool lights come on |
 
-## Learn More
+Mouse: camera parallax everywhere, custom cursor with labels (`data-cursor="View"`), magnetic buttons, hover hotspots, 3D card tilt.
 
-To learn more about Next.js, take a look at the following resources:
+## Where things live
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+lib/content.ts            ← ALL copy: brand, captions, hotspots, listings
+lib/store.ts              ← shared mutable state (scroll → 3D bridge, no re-renders)
+components/scene/
+  Experience.tsx          ← Canvas, post-processing (N8AO ambient occlusion), perf scaling
+  Villa.tsx               ← procedural house model + dusk lighting
+  Landscape.tsx           ← lawn, swaying trees, hedges, path
+  Lighting.tsx            ← sun, studio environment (no HDR download), day→dusk colours
+  CameraRig.tsx           ← camera keyframes (KEYS) + mouse parallax + intro dolly
+  Hotspots.tsx            ← HTML pins attached to 3D positions
+components/sections/      ← Hero, Story, Listings, Marquee, Finale
+components/ui/            ← SmoothScroll (Lenis+GSAP), Cursor, Magnetic, Preloader, Nav
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Customising
 
-## Deploy on Vercel
+- **Copy / listings / prices:** `lib/content.ts`. Listing images are Unsplash placeholders — replace with the client's photos (put them in `/public` and use `/photo.jpg`).
+- **Camera path:** edit `KEYS` in `CameraRig.tsx`. `at` must line up with `captions[].at` and `hotspots[].range` in content.ts.
+- **Use the client's real 3D model:** export a `.glb` (Blender/SketchUp → glTF), put it in `/public/villa.glb`, and replace `<Villa />` with drei's `<Gltf src="/villa.glb" castShadow receiveShadow />`. Re-tune `KEYS` to frame it. Compress with `npx gltfjsx villa.glb --transform`.
+- **Colours / fonts:** `@theme` in `app/globals.css`, fonts in `app/layout.tsx`. Scene colours are in `Lighting.tsx` (DAY_BG / DUSK_BG) and `Villa.tsx` materials.
+- **Booking form:** `Finale.tsx` → wire `onSubmit` to your API route / Formspree / WhatsApp link.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Performance & accessibility
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `PerformanceMonitor` drops DPR and disables post-processing on slow GPUs.
+- Custom cursor only on fine pointers; touch devices keep native behaviour.
+- `prefers-reduced-motion`: Lenis off, camera snaps instead of gliding, no horizontal pin, no marquee.
+- Hotspots are real buttons (keyboard focusable, labelled).
