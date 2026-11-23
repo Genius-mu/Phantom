@@ -55,12 +55,12 @@ export default function Story() {
           <div
             key={c.text}
             data-cap
-            className={`lift absolute max-w-[11ch] will-change-transform ${
+            className={`lift absolute w-[min(88vw,64rem)] will-change-transform ${
               i % 2 ? "right-6 text-right md:right-16" : "left-6 md:left-10"
             }`}
             style={{ opacity: 0 }}
           >
-            <p className="display metal text-[13vw] md:text-[6.2vw]">{c.text}</p>
+            <p className={`display metal max-w-[10ch] text-[13vw] md:text-[6.2vw] ${i % 2 ? "ml-auto" : ""}`}>{c.text}</p>
             <p className={`mt-5 max-w-[28ch] text-base font-medium leading-relaxed text-white md:text-lg ${i % 2 ? "ml-auto" : ""}`}>
               {c.sub}
             </p>
