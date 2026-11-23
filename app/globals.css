@@ -14,8 +14,8 @@
 }
 
 html {
-  background: var(--color-mist);
-  color: var(--color-slate);
+  background: var(--color-slate);
+  color: #fff;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -56,11 +56,32 @@ html.lenis body {
   border-radius: 2px;
 }
 
+/* Block type: heavy, wide, tight — the brand voice */
 .display {
   font-family: var(--font-display);
-  font-variation-settings: "wdth" 80;
-  letter-spacing: -0.045em;
-  line-height: 0.86;
+  font-weight: 800;
+  font-variation-settings: "wdth" 100, "opsz" 96;
+  letter-spacing: -0.035em;
+  line-height: 0.92;
+  color: #fff;
+}
+
+/*
+ * Brushed white-to-silver fill. Put it on the element that holds the text
+ * (for per-letter animations, on each letter) — not on a parent of
+ * transformed children, or the fill won't paint.
+ */
+.metal {
+  background-image: linear-gradient(180deg, #ffffff 0%, #f4f6f5 42%, #c3cbc8 78%, #a7b1ae 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Soft lift so white type reads over bright footage */
+.lift {
+  filter: drop-shadow(0 4px 24px rgba(14, 24, 22, 0.55)) drop-shadow(0 1px 2px rgba(14, 24, 22, 0.5));
 }
 
 @media (prefers-reduced-motion: reduce) {

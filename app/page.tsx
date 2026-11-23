@@ -1,20 +1,18 @@
-import SmoothScroll from "@/components/ui/SmoothScroll";
-import Cursor from "@/components/ui/Cursor";
 import Preloader from "@/components/ui/Preloader";
-import Nav from "@/components/ui/Nav";
 import FrameStage from "@/components/stage/FrameStage";
 import Hero from "@/components/sections/Hero";
 import Story from "@/components/sections/Story";
+import Intro from "@/components/sections/Intro";
 import Listings from "@/components/sections/Listings";
+import Process from "@/components/sections/Process";
 import Marquee from "@/components/sections/Marquee";
+import Faq from "@/components/sections/Faq";
 import Finale from "@/components/sections/Finale";
 
 export default function Page() {
   return (
-    <SmoothScroll>
+    <>
       <Preloader />
-      <Cursor />
-      <Nav />
 
       {/* Fixed film layer behind everything */}
       <FrameStage />
@@ -25,10 +23,13 @@ export default function Page() {
           <Hero />
           <Story />
         </div>
+        <Intro />
         <Listings />
+        <Process />
         <Marquee />
+        <Faq />
         <Finale />
       </main>
-    </SmoothScroll>
+    </>
   );
 }

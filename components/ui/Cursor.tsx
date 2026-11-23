@@ -77,7 +77,7 @@ export default function Cursor() {
   const size = mode === "label" ? 92 : mode === "hover" ? 56 : 34;
 
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 z-[100]">
+    <div aria-hidden className={`pointer-events-none fixed inset-0 z-[100] ${mode === "label" ? "" : "mix-blend-difference"}`}>
       <div
         ref={ring}
         className="absolute left-0 top-0 flex items-center justify-center rounded-full border transition-[width,height,background-color,border-color] duration-500 ease-out-expo"
@@ -86,12 +86,12 @@ export default function Cursor() {
           height: size,
           marginLeft: -size / 2,
           marginTop: -size / 2,
-          borderColor: mode === "label" ? "transparent" : "rgba(34,48,45,0.35)",
-          backgroundColor: mode === "label" ? "#22302d" : mode === "hover" ? "rgba(79,159,164,0.14)" : "transparent",
+          borderColor: mode === "label" ? "transparent" : "rgba(255,255,255,0.7)",
+          backgroundColor: mode === "label" ? "#ffffff" : mode === "hover" ? "rgba(255,255,255,0.18)" : "transparent",
         }}
       >
         <span
-          className="text-[13px] font-medium text-mist transition-opacity duration-300"
+          className="text-[13px] font-semibold text-slate transition-opacity duration-300"
           style={{ opacity: mode === "label" ? 1 : 0 }}
         >
           {label}
@@ -99,7 +99,7 @@ export default function Cursor() {
       </div>
       <div
         ref={dot}
-        className="absolute left-0 top-0 -ml-[3px] -mt-[3px] h-[6px] w-[6px] rounded-full bg-slate transition-opacity"
+        className="absolute left-0 top-0 -ml-[3px] -mt-[3px] h-[6px] w-[6px] rounded-full bg-white transition-opacity"
         style={{ opacity: mode === "label" ? 0 : 1 }}
       />
     </div>

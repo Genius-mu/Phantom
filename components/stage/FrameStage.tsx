@@ -230,7 +230,7 @@ export default function FrameStage() {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-0 overflow-hidden bg-mist [perspective:1400px]" role="img" aria-label="Film of a modern villa with a lap pool">
+    <div className="fixed inset-0 z-0 overflow-hidden bg-slate [perspective:1400px]" role="img" aria-label="Film of a modern villa with a lap pool">
       <div ref={stage} className="absolute inset-0 origin-center will-change-transform">
         <canvas ref={canvas} className="absolute inset-0 block" />
         {/* dusk sky + shadow wash */}
@@ -260,8 +260,10 @@ export default function FrameStage() {
         </div>
       </div>
       <div ref={sheen} className="pointer-events-none absolute inset-0 mix-blend-soft-light" />
-      {/* keeps light text-free areas readable over bright footage */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-mist/70 to-transparent" />
+      {/* shade so white block type reads over bright footage */}
+      <div className="pointer-events-none absolute inset-0 bg-slate/15" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[78%] bg-gradient-to-t from-slate/85 via-slate/45 to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-3/5 bg-gradient-to-r from-slate/45 to-transparent" />
     </div>
   );
 }

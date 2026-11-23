@@ -31,11 +31,11 @@ export default function Marquee() {
   const items = [...neighbourhoods, ...neighbourhoods];
 
   return (
-    <section className="relative overflow-hidden bg-mist py-[12vh]" aria-label="Neighbourhoods we cover">
+    <section className="relative overflow-hidden bg-slate py-[12vh]" aria-label="Neighbourhoods we cover">
       <div ref={row} className="flex w-max will-change-transform">
         {items.map((n, i) => (
-          <span key={i} className="display flex items-center whitespace-nowrap text-[14vw] font-light text-slate md:text-[9vw]" aria-hidden={i >= neighbourhoods.length}>
-            {n}
+          <span key={i} className="display flex items-center whitespace-nowrap text-[14vw] md:text-[9vw]" aria-hidden={i >= neighbourhoods.length}>
+            <span className="metal">{n}</span>
             <span className="mx-[0.35em] inline-block h-[0.14em] w-[0.14em] rounded-full bg-pool" />
           </span>
         ))}

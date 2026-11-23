@@ -23,6 +23,8 @@ export const pointer = { x: 0, y: 0 };
 export const app = {
   lenis: null as Lenis | null,
   sceneReady: false,
+  /** true once the home intro has played (skip the preloader on return visits) */
+  introPlayed: false,
   reducedMotion: false,
 };
 
