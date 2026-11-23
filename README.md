@@ -35,7 +35,6 @@ components/scene/
   Landscape.tsx           ← lawn, swaying trees, hedges, path
   Lighting.tsx            ← sun, studio environment (no HDR download), day→dusk colours
   CameraRig.tsx           ← camera keyframes (KEYS) + mouse parallax + intro dolly
-  Hotspots.tsx            ← HTML pins attached to 3D positions
 components/sections/      ← Hero, Story, Listings, Marquee, Finale
 components/ui/            ← SmoothScroll (Lenis+GSAP), Cursor, Magnetic, Preloader, Nav
 ```

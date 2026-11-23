@@ -8,7 +8,6 @@ import Lighting from "./Lighting";
 import Villa from "./Villa";
 import Landscape from "./Landscape";
 import CameraRig from "./CameraRig";
-import Hotspots from "./Hotspots";
 import { app } from "@/lib/store";
 
 export default function Experience() {
@@ -43,7 +42,6 @@ export default function Experience() {
           <Lighting />
           <Landscape />
           <Villa />
-          <Hotspots />
           <CameraRig />
           <Preload all />
         </Suspense>
