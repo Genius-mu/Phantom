@@ -43,18 +43,23 @@ export default function Finale() {
   return (
     <section id="finale" ref={root} className="pointer-events-none relative h-[220vh]">
       <div className="sticky top-0 flex h-[100svh] flex-col justify-between px-6 pb-8 pt-28 md:px-10 md:pb-10">
-        <h2 className="finale-title display text-[16vw] font-semibold md:text-[9vw]">
+        <div>
+        <h2 className="finale-title display lift text-[16vw] md:text-[9vw]">
           <span className="block overflow-hidden">
-            <span className="finale-line block">See it</span>
+            <span className="finale-line metal block">See it</span>
           </span>
           <span className="block overflow-hidden">
-            <span className="finale-line block">in person.</span>
+            <span className="finale-line metal block">in person.</span>
           </span>
         </h2>
+        <p className="lift mt-6 max-w-[36ch] text-base font-medium leading-relaxed text-white md:text-lg">
+          Leave your number and the home you&apos;d like to see. An agent calls you back within one working day to set a time.
+        </p>
+        </div>
 
         <div className="pointer-events-auto flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
           <form
-            className="flex w-full max-w-md items-center gap-3 rounded-full bg-white/70 p-2 pl-6 backdrop-blur-md"
+            className="flex w-full max-w-md items-center gap-3 rounded-full bg-white/85 p-2 pl-6 backdrop-blur-md"
             onSubmit={(e) => {
               e.preventDefault();
               setSent(true);
@@ -68,19 +73,19 @@ export default function Finale() {
               type="tel"
               required
               placeholder="Your phone number"
-              className="min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-slate/50"
+              className="min-w-0 flex-1 bg-transparent text-base text-slate outline-none placeholder:text-slate/50"
             />
             <Magnetic strength={0.25}>
               <button
                 type="submit"
-                className="rounded-full bg-slate px-6 py-3.5 text-sm font-medium text-mist transition-colors hover:bg-pool"
+                className="rounded-full bg-slate px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-pool"
               >
                 {sent ? "Request sent" : "Book a viewing"}
               </button>
             </Magnetic>
           </form>
 
-          <div className="flex gap-10 text-sm">
+          <div className="lift flex flex-col gap-3 text-sm font-medium text-white md:flex-row md:gap-10">
             <a href={`tel:${brand.phone.replace(/\s/g, "")}`} className="hover:text-pool">
               {brand.phone}
             </a>
@@ -90,7 +95,7 @@ export default function Finale() {
           </div>
         </div>
 
-        <p className="absolute bottom-3 left-6 text-xs text-slate/50 md:left-10" aria-live="polite">
+        <p className="absolute bottom-3 left-6 text-xs text-white/70 md:left-10" aria-live="polite">
           {sent ? "Thanks. We'll call you within one working day to arrange a time." : `© ${new Date().getFullYear()} ${brand.name}`}
         </p>
       </div>

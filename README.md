@@ -24,6 +24,19 @@ Open http://localhost:3000. Deploys to Vercel as-is.
 
 Mouse: camera parallax everywhere, custom cursor with labels (`data-cursor="View"`), magnetic buttons, hover hotspots, 3D card tilt.
 
+## Listing pages
+
+Every card in **Available now** opens `/homes/[slug]` (`app/homes/[slug]/page.tsx` → `components/listing/ListingDetail.tsx`):
+hero with the name in block type, key facts (price, beds, baths, built-up area, plot, title document, completion, parking, service charge, power),
+description, **falling feature tags** (matter.js physics — drag them, or press Shake), a drag/lightbox gallery, map + nearby places,
+payment plan and paperwork, a booking form with WhatsApp/call links, and a link to the next home.
+All listing data lives in `lib/content.ts` and is placeholder — replace with the client's verified details.
+
+## Type
+
+Headings use `.display` (Bricolage Grotesque 800) with `.metal` (white-to-silver fill) and `.lift` (soft shadow for legibility over footage), defined in `app/globals.css`.
+Put `.metal` on the element that holds the text — for per-letter animations, on each letter.
+
 ## Where things live
 
 ```

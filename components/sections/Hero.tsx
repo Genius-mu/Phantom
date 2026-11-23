@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { motion } from "motion/react";
 import Magnetic from "@/components/ui/Magnetic";
 import { brand } from "@/lib/content";
-import { scrollToId } from "@/lib/store";
+import { app, scrollToId } from "@/lib/store";
 
 const LINES = ["Homes worth", "the view."];
 
@@ -15,6 +15,7 @@ export default function Hero() {
   const title = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
+    if (app.introPlayed) setGo(true);
     const start = () => setGo(true);
     window.addEventListener("intro:start", start);
     return () => window.removeEventListener("intro:start", start);
@@ -40,13 +41,13 @@ export default function Hero() {
 
   return (
     <section ref={root} className="relative flex h-[100svh] flex-col justify-end px-6 pb-8 md:px-10 md:pb-10">
-      <h1 ref={title} className="display max-w-[12ch] text-[17vw] font-semibold md:text-[10.5vw]" aria-label={brand.tagline}>
+      <h1 ref={title} className="display lift max-w-[12ch] text-[16vw] md:text-[9.5vw]" aria-label={brand.tagline}>
         {LINES.map((line, li) => (
           <span key={line} className="block overflow-hidden pb-[0.06em]" aria-hidden>
             {line.split("").map((ch, ci) => (
               <motion.span
                 key={ci}
-                className="inline-block whitespace-pre"
+                className="metal inline-block whitespace-pre"
                 initial={{ y: "110%", rotate: 6 }}
                 animate={go ? { y: "0%", rotate: 0 } : undefined}
                 transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.15 + li * 0.12 + ci * 0.025 }}
@@ -65,22 +66,27 @@ export default function Hero() {
         animate={go ? { opacity: 1, y: 0 } : undefined}
         transition={{ duration: 1, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
       >
-        <p className="max-w-[28ch] text-sm leading-relaxed text-slate/70 md:text-base">
-          Private residences across {brand.city}, shown by appointment.
-        </p>
+        <div className="lift max-w-[34ch]">
+          <p className="text-base font-medium leading-relaxed text-white md:text-lg">
+            Private residences across {brand.city}, shown by appointment.
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-white/75">
+            Lagoon villas, garden flats and penthouses, each one visited, measured and title-checked before you see it.
+          </p>
+        </div>
 
         <div className="pointer-events-auto flex items-center gap-6">
           <Magnetic>
             <button
               onClick={() => scrollToId("finale")}
-              className="rounded-full bg-slate px-7 py-4 text-sm font-medium text-mist transition-colors hover:bg-pool"
+              className="rounded-full bg-white px-7 py-4 text-sm font-semibold text-slate transition-colors hover:bg-pool hover:text-white"
             >
               Book a viewing
             </button>
           </Magnetic>
-          <span className="hidden items-center gap-3 text-sm text-slate/60 md:flex">
-            <span className="relative block h-10 w-[1.5px] overflow-hidden bg-slate/15">
-              <span className="absolute inset-x-0 top-0 h-1/2 animate-[scrollhint_2s_ease-in-out_infinite] bg-slate" />
+          <span className="hidden items-center gap-3 text-sm text-white/80 md:flex">
+            <span className="relative block h-10 w-[1.5px] overflow-hidden bg-white/25">
+              <span className="absolute inset-x-0 top-0 h-1/2 animate-[scrollhint_2s_ease-in-out_infinite] bg-white" />
             </span>
             Scroll
           </span>

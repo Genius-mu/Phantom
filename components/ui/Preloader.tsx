@@ -15,6 +15,13 @@ export default function Preloader() {
   const [gone, setGone] = useState(false);
 
   useEffect(() => {
+    // Coming back from a listing page: skip straight to the site.
+    if (app.introPlayed) {
+      setGone(true);
+      scrollState.intro = 1;
+      app.lenis?.start();
+      return;
+    }
     const counter = { v: 0 };
     let ready = app.sceneReady;
     const onReady = () => (ready = true);
@@ -56,6 +63,7 @@ export default function Preloader() {
         ease: "expo.inOut",
       });
       tl.add(() => {
+        app.introPlayed = true;
         window.dispatchEvent(new Event("intro:start"));
         app.lenis?.start();
       }, "-=0.55");
@@ -75,14 +83,14 @@ export default function Preloader() {
   return (
     <div
       ref={root}
-      className="fixed inset-0 z-[90] flex flex-col justify-between bg-mist p-6 md:p-10"
+      className="fixed inset-0 z-[90] flex flex-col justify-between bg-slate p-6 md:p-10"
       role="status"
       aria-label="Loading"
     >
-      <span className="display text-2xl">{brand.name}</span>
+      <span className="display metal text-2xl">{brand.name}</span>
       <div className="flex items-end justify-between">
-        <span className="max-w-[16ch] text-sm text-slate/60">Preparing the house</span>
-        <span className="display tabular-nums text-[22vw] leading-none md:text-[14vw]">{count}</span>
+        <span className="max-w-[16ch] text-sm text-white/60">Preparing the house</span>
+        <span className="display metal tabular-nums text-[22vw] leading-none md:text-[14vw]">{count}</span>
       </div>
       <div className="absolute bottom-0 left-0 h-[3px] bg-pool" style={{ width: `${count}%` }} />
     </div>
